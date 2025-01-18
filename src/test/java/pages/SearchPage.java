@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class SearchPage extends BasePage {
     @FindBy(id = "filter_name")
     WebElement searchBar;
@@ -29,5 +31,19 @@ public class SearchPage extends BasePage {
     public void searchForProduct(String searchTerm) {
         enterSearchText(searchTerm);
         clickSearchButton();
+    }
+
+    @FindBy(css = ".single-product")
+    private List<WebElement> searchResults;
+
+    public List<WebElement> getSearchResults() {
+        return searchResults;
+    }
+
+    @FindBy(css = ".product-img")
+    private WebElement firstProduct;
+
+    public void clickFirstProduct() {
+        firstProduct.click();
     }
 }

@@ -5,23 +5,26 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pages.HomePage;
-import pages.LoginPage;
+import pages.SearchPage;
+
 import java.time.Duration;
 
-
-public class LoginTest extends BaseTest {
+public class SearchTest extends BaseTest {
 
     @Test
-    public void testLogin() {
+    public void testSearch() {
         HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = new LoginPage(driver);
+        SearchPage searchPage = new SearchPage(driver);
 
-        homePage.clickLogin();
-        loginPage.login("carttestingopenway@gmail.com", "KiYiFwUn$MDZ6eZ");
+        homePage.searchProduct("flowers for algernon");
+        // Searches for the book flowers for algernon
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("preloader")));
 
+        searchPage.clickFirstProduct();
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("preloader")));
+
     }
 }
-// Future test cases to include conditions and actions for failed login setup from incorrect email/password

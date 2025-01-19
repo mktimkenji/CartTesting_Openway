@@ -5,16 +5,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.ProductPage;
-import pages.SearchPage;
+import pages.*;
 
 import java.time.Duration;
 
 import static org.testng.AssertJUnit.assertEquals;
 
 public class ProductPageTest extends BaseTest{
+
+    // Original automation test task of adding a product to the cart and verifying it
     @Test
     public void testProductPage() {
 
@@ -22,6 +21,7 @@ public class ProductPageTest extends BaseTest{
         SearchPage searchPage = new SearchPage(driver);
         ProductPage productPage = new ProductPage(driver);
         LoginPage loginPage = new LoginPage(driver);
+        CartPage cartPage = new CartPage(driver);
 
         // Log in
         homePage.clickLogin();
@@ -68,9 +68,20 @@ public class ProductPageTest extends BaseTest{
         int updatedCartTotal = productPage.getCartTotal();
         System.out.println("Updated Cart Total: " + updatedCartTotal);
 
-        // Verify that the cart total increased by 1 (assuming one product is added)
+        // Verify that the cart total increased by 1
         assertEquals("Cart total should increase by 1 after adding a product", initialCartTotal + 1, updatedCartTotal);
+
+
+        // Remove existing product for consequent test to be valid
+        productPage.gotoCart();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("preloader")));
+        cartPage.clickRemoveButton();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("preloader")));
     }
 }
 
-
+// Test passed when chosen product have not been previously added to the cart
+// This test structure will fail when trying to add an existing product
+// Periplus website will update the cart item quantity to the quantity added on the product page for existing products
+// This means cart quantity may also decrease if the new amount added is lower than the previous cart quantity amount
+// For testing purposes, this would require a different test suite/class with a different logic to verify the cart amount

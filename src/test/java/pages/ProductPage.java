@@ -18,6 +18,9 @@ public class ProductPage extends BasePage {
     @FindBy(id = "cart_total")
     private WebElement cartTotalElement;
 
+    @FindBy(id = "show-your-cart")
+    private WebElement showCartButton;
+
     public ProductPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -33,6 +36,10 @@ public class ProductPage extends BasePage {
 
     public void addToCart() {
         click(addToCartButton);
+    }
+
+    public void gotoCart(){
+        click(showCartButton);
     }
 
     public int getCartTotal() {

@@ -21,6 +21,7 @@ public class SearchPage extends BasePage {
     }
 
     public void enterSearchText(String searchTerm) {
+        searchBar.clear();
         searchBar.sendKeys(searchTerm);
     }
 

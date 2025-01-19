@@ -21,9 +21,26 @@ public class ProductPage extends BasePage {
     @FindBy(id = "show-your-cart")
     private WebElement showCartButton;
 
+    @FindBy(className = "btn-product-plus")
+    private WebElement productPlusButton;
+
+    @FindBy(className = "btn-product-minus")
+    private WebElement productMinusButton;
+
+    @FindBy(className = "special")
+    private WebElement price;
+
     public ProductPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
+    }
+
+    public void decrementProduct(){
+        productMinusButton.click();
+    }
+
+    public void incrementProduct(){
+        productPlusButton.click();
     }
 
     public String getProductName() {
@@ -40,6 +57,12 @@ public class ProductPage extends BasePage {
 
     public void gotoCart(){
         click(showCartButton);
+    }
+
+    public int getPrice() {
+        String currencyString = price.getText();
+        String cleanedString = currencyString.replace("Rp", "").replace(",", "").trim();
+        return Integer.parseInt(cleanedString);
     }
 
     public int getCartTotal() {

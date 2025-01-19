@@ -1,23 +1,16 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+// import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.List;
 
 public class CartPage extends BasePage {
-    private final By productRows = By.className("row-cart-product");
-    private final By subTotalPrice = By.xpath("//li[contains(text(), 'Sub-Total')]/span");
-
-    @FindBy(xpath = "//div[@class='dropdown-cart-header']/span")
-    private WebElement cartItemCount;
-
-    @FindBy(xpath = "//div[@class='total']//span[@class='total-amount']")
-    private WebElement cartTotalAmount;
+    @FindBy(id = "sub_total")
+    private WebElement cartPagePriceTotal;
 
     @FindBy(css = ".button.plus")
     private WebElement plusButton;
@@ -31,32 +24,6 @@ public class CartPage extends BasePage {
     public CartPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
-    }
-
-    public List<WebElement> getProductRows() {
-        return driver.findElements(productRows);
-    }
-
-    public String getSubTotalPrice() {
-        return driver.findElement(subTotalPrice).getText();
-    }
-
-    public String getCartItemCount() {
-        return cartItemCount.getText();
-    }
-
-    public String getCartTotalAmount() {
-        return cartTotalAmount.getText();
-    }
-
-    public String getProductName(WebElement productRow) {
-        return productRow.findElement(By.cssSelector("p.product-name a")).getText();
-    }
-
-    public int getProductPrice(WebElement productRow) {
-        String priceText = productRow.findElement(By.xpath(".//div[contains(text(), 'Rp')]")).getText();
-        String priceOnly = priceText.split("or")[0].replace("Rp", "").replace(",", "").trim();
-        return Integer.parseInt(priceOnly);
     }
 
     public void clickPlusButton() {
@@ -74,11 +41,8 @@ public class CartPage extends BasePage {
         inputField.sendKeys("\n"); // Simulate enter key to trigger change
     }
 
-    public void removeProduct(WebElement productRow) {
-        productRow.findElement(By.cssSelector("a.btn-cart-remove")).click();
-    }
 
-    // Placeholder for remove button on ProductPageTest
+    // Remove Button
     @FindBy(className ="btn-cart-remove")
     private WebElement removeButton;
     public void clickRemoveButton() {
@@ -92,6 +56,12 @@ public class CartPage extends BasePage {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public int getTotalPrice() {
+        String currencyString = cartPagePriceTotal.getText();
+        String cleanedString = currencyString.replace("Rp", "").replace(",", "").trim();
+        return Integer.parseInt(cleanedString);
     }
 }
 

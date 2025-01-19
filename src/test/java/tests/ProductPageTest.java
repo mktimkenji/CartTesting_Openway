@@ -80,9 +80,11 @@ public class ProductPageTest extends BaseTest{
     }
 }
 
-// This test is only for functionality of the productpage, cart test will be in its own class
-// Test passed when chosen product have not been previously added to the cart
-// This test structure will fail when trying to add an existing product
-// Periplus website add to cart's behavior overwrites the existing product's quantity instead of incrementing it
-// This means cart quantity may also decrease if the new amount added is lower than the previous cart quantity amount
-// For testing purposes, this would require a different test suite/class with a different logic to verify the cart amount
+/*
+This test is only for functionality of the productpage, cart test will be in its own class
+Test passed when chosen product have not been previously added to the cart
+This test structure will fail when trying to add an existing product
+Periplus website add to cart's behavior overwrites the existing product's quantity instead of incrementing it
+This means cart quantity may also decrease if the new amount added is lower than the previous cart quantity amount
+For testing purposes, this would require a different test suite/class with a different logic to verify the cart amount
+ */

@@ -350,8 +350,8 @@ public class CartTest extends BaseTest {
 }
 
 /*
-Future improvements could be to store cart items in cart page as an array for better scalability and maintainability
-This would also enable automated calculation for verification on the cart page itself
+Future improvements would be to store cart items in cart page as an array for better scalability and maintainability
+This would also enable automated price calculation for verification on the cart page itself
 A natural integration of verifying the price system for each test case as a function
 Improve logic to merge adding existing product test with base addition and removal test,
 currently not feasible due to test format not having a way to verify existence of a specific product in cart.
